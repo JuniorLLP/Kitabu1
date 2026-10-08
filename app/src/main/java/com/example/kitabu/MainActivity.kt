@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+// Git test
 @Composable
 fun KitabuApp(viewModel: KitabuViewModel) {
     val navController = rememberNavController()
