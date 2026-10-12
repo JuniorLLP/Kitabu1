@@ -121,7 +121,7 @@ fun KitabuApp(viewModel: KitabuViewModel) {
                 }
             }
         }
-    )//navagation  { innerPadding ->
+    ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
