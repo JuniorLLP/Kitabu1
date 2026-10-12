@@ -11,6 +11,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Assignment
 import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -214,13 +216,43 @@ fun BookHomeCard(book: BookEntity, onClick: () -> Unit) {
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
         Column {
-            BookCoverImage(
-                coverUrl = book.coverUrl,
-                contentDescription = book.title,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp)
-            )
+            Box(modifier = Modifier.fillMaxWidth().height(180.dp)) {
+                BookCoverImage(
+                    coverUrl = book.coverUrl,
+                    contentDescription = book.title,
+                    modifier = Modifier.fillMaxSize()
+                )
+                
+                // Rating Badge
+                Surface(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .align(Alignment.TopStart),
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color.Black.copy(alpha = 0.6f)
+                ) {
+                    Text(
+                        text = "★ ${book.rating}",
+                        color = Color.White,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    )
+                }
+
+                // Favorite Indicator
+                if (book.isFavorite) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = "Favorite",
+                        tint = DangerRed,
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(8.dp)
+                            .size(20.dp)
+                    )
+                }
+            }
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(text = book.title, color = BodyTextDark, fontWeight = FontWeight.Bold, fontSize = 14.sp, maxLines = 1)
                 Text(text = book.author, color = MutedTextGray, fontSize = 12.sp, maxLines = 1)
