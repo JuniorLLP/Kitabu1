@@ -8,6 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -42,7 +44,11 @@ fun BookDetailScreen(bookId: Int, viewModel: KitabuViewModel, onBack: () -> Unit
                 .background(AppBackground)
                 .verticalScroll(rememberScrollState())
         ) {
-            HeroHeader(book = currentBook, onBack = onBack)
+            HeroHeader(
+                book = currentBook, 
+                onBack = onBack,
+                onFavoriteToggle = { viewModel.toggleFavorite(currentBook) }
+            )
             
             Column(
                 modifier = Modifier
@@ -108,7 +114,7 @@ fun BookDetailScreen(bookId: Int, viewModel: KitabuViewModel, onBack: () -> Unit
 }
 
 @Composable
-fun HeroHeader(book: BookEntity, onBack: () -> Unit) {
+fun HeroHeader(book: BookEntity, onBack: () -> Unit, onFavoriteToggle: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -144,6 +150,23 @@ fun HeroHeader(book: BookEntity, onBack: () -> Unit) {
         ) {
             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
         }
+
+        // Favorite Button
+        IconButton(
+            onClick = onFavoriteToggle,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 48.dp, end = 24.dp)
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(Color(0x55000000))
+        ) {
+            Icon(
+                if (book.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                contentDescription = "Favorite",
+                tint = if (book.isFavorite) DangerRed else Color.White
+            )
+        }
         
         // Floating Cover
         BookCoverImage(
@@ -162,11 +185,12 @@ fun HeroHeader(book: BookEntity, onBack: () -> Unit) {
 fun MetadataRow(book: BookEntity) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        MetadataCard(label = "Category", value = book.category, modifier = Modifier.weight(1f))
-        MetadataCard(label = "Pages", value = book.pages.toString(), modifier = Modifier.weight(1f))
-        MetadataCard(label = "Year", value = book.year.toString(), modifier = Modifier.weight(1f))
+        MetadataCard(label = "Category", value = book.category, modifier = Modifier.weight(1.2f))
+        MetadataCard(label = "Pages", value = book.pages.toString(), modifier = Modifier.weight(0.9f))
+        MetadataCard(label = "Year", value = book.year.toString(), modifier = Modifier.weight(0.9f))
+        MetadataCard(label = "Rating", value = "★ ${book.rating}", modifier = Modifier.weight(1.0f))
     }
 }
 
