@@ -13,6 +13,8 @@ data class BookEntity(
     val description: String = "",
     val pages: Int = 0,
     val year: Int = 0,
+    val rating: Double = 4.5,
+    val isFavorite: Boolean = false,
     val coverUrl: String = "",
     val isAvailable: Boolean = true
 )
