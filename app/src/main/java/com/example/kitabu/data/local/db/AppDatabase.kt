@@ -29,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "kitabu_db_v5"
+                    "kitabu_db_v6"
                 )
                 .addCallback(AppDatabaseCallback(CoroutineScope(Dispatchers.IO)))
                 .build()
@@ -60,6 +60,8 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code.", 
                     pages = 464, 
                     year = 2008,
+                    rating = 4.8,
+                    isFavorite = true,
                     coverUrl = "cover_1"
                 ),
                 BookEntity(
@@ -69,6 +71,8 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "Capturing a wealth of experience about the design of object-oriented software, four top-notch designers present a catalog of simple and succinct solutions to commonly occurring design problems.", 
                     pages = 395, 
                     year = 1994,
+                    rating = 4.7,
+                    isFavorite = false,
                     coverUrl = "cover_2"
                 ),
                 BookEntity(
@@ -78,6 +82,8 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "One of the most significant books in software development, The Pragmatic Programmer illustrates the best practices and major pitfalls of many different aspects of software development.", 
                     pages = 352, 
                     year = 1999,
+                    rating = 4.9,
+                    isFavorite = true,
                     coverUrl = "cover_3"
                 ),
                 BookEntity(
@@ -87,6 +93,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "An in-depth guide to the core mechanisms of the JavaScript language.", 
                     pages = 278, 
                     year = 2014, 
+                    rating = 4.6,
                     isAvailable = false,
                     coverUrl = "cover_5"
                 ),
@@ -97,6 +104,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "Improving the design of existing code through proven patterns and transformation rules.", 
                     pages = 448, 
                     year = 1999,
+                    rating = 4.7,
                     coverUrl = "cover_4"
                 ),
                 BookEntity(
@@ -106,6 +114,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "The fundamental concepts of operating systems including processes, memory, and file systems.", 
                     pages = 976, 
                     year = 2018,
+                    rating = 4.5,
                     coverUrl = "cover_6"
                 ),
                 BookEntity(
@@ -115,6 +124,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "The core principles of computer networking, hardware, and protocols.", 
                     pages = 912, 
                     year = 2010, 
+                    rating = 4.6,
                     isAvailable = false,
                     coverUrl = "cover_7"
                 ),
@@ -125,6 +135,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "Best practices for the Java platform for every professional developer.", 
                     pages = 416, 
                     year = 2001,
+                    rating = 4.9,
                     coverUrl = "cover_8"
                 )
             )
