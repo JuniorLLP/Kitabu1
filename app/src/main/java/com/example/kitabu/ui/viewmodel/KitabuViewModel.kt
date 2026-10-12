@@ -48,6 +48,16 @@ class KitabuViewModel(private val repository: KitabuRepository) : ViewModel() {
         _searchQuery.value = query
     }
 
+    fun toggleFavorite(book: BookEntity) {
+        viewModelScope.launch {
+            val updated = book.copy(isFavorite = !book.isFavorite)
+            repository.updateBook(updated)
+            if (_selectedBook.value?.bookId == book.bookId) {
+                _selectedBook.value = updated
+            }
+        }
+    }
+
     fun reserveBook(book: BookEntity, userName: String, durationDays: Int) {
         viewModelScope.launch {
             val bookingDate = System.currentTimeMillis()
